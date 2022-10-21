@@ -14,6 +14,7 @@ for i = 1:4
     vi(i) = 111.111 + rand(1) * 2; % 111.111
     vx(i, 1) = vi(i) * cosd(angulo(i));
     vy(i, 1) = vi(i) * sind(angulo(i));
+    
 end
 
 for k = 1:1
@@ -23,12 +24,15 @@ for k = 1:1
     vi(k) = 111.111; % 111.111
     vx(k, 1) = vi(k) * cosd(angulo(k));
     vy(k, 1) = vi(k) * sind(angulo(k));
+    ymax = vi(k)^2 * sind(angulo(k)) ^ 2/abs(2*g); % -g 
+    xmax = vi(k)^2* sind(2 * angulo(k)) ^ 2 / abs(g);
 end 
 %------------------
 ti = 0; % tiempo inicial 
 tf = (2 * vi(i) * sind(angulo(i))/abs(g)) + abs(sqrt(2 * y(i, 1) / g)); % tiempo final 
-N = 450; % no. de pasos 
+N = 100; % no. de pasos 
 dt = (tf-ti)/N; % % tiempo sobre el numero de pasos 
+disp(dt)
 vf = sqrt(vx(i).^2 + vy(i).^2);
 %------------------
 
@@ -47,6 +51,11 @@ ylim([0,inf])
 figure(1) 
 hold on
 % set(gcf,'position',[1000,1000,1000,1000])
+text_xmax = sprintf("x_{max} = %.2f m", 2 * xmax(k) + 100);
+text(2 * xmax(k) + 100, 0.1 * ymax(k), text_xmax)
+text_ymax = sprintf("y_{max} = %.2f m", ymax(k) + 463);
+text(xmax(k) / 2, (1.1 * ymax(k)) + 463, text_ymax)
+
 
 xlabel("Posición en X (metros)");
 ylabel("Posición en Y (metros)");

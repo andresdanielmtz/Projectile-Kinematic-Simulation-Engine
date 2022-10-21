@@ -2,7 +2,7 @@ clear all
 close all
 clc 
 
-num = 50; % # de pasos
+num = 200; % # de pasos
 a = -9.81; 
 
 xi = 0;
