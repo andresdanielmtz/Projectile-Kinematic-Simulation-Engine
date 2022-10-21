@@ -30,7 +30,7 @@ end
 %------------------
 ti = 0; % tiempo inicial 
 tf = (2 * vi(i) * sind(angulo(i))/abs(g)) + abs(sqrt(2 * y(i, 1) / g)); % tiempo final 
-N = 100; % no. de pasos 
+N = 350; % no. de pasos 
 dt = (tf-ti)/N; % % tiempo sobre el numero de pasos 
 disp(dt)
 vf = sqrt(vx(i).^2 + vy(i).^2);
@@ -56,9 +56,12 @@ text(2 * xmax(k) + 100, 0.1 * ymax(k), text_xmax)
 text_ymax = sprintf("y_{max} = %.2f m", ymax(k) + 463);
 text(xmax(k) / 2, (1.1 * ymax(k)) + 463, text_ymax)
 
+text_altura = sprintf("y_{inicial} = %.2f m", 463);
+text(-600, 500, text_altura) % specific altitude
 
-xlabel("Posición en X (metros)");
-ylabel("Posición en Y (metros)");
+
+xlabel("X (metros)");
+ylabel("Y (metros)");
 axis([-1000 1500 0 1500])
 
 
@@ -76,11 +79,12 @@ for n = 1:N
   yplot = y(i, n+1);
    
   
-  symbol = text(xplot ,yplot, "." );
+  %symbol = text(xplot ,yplot, "." );
   pause(0.00000000000000000001);
   plot(xplot,yplot, ".");
 
-  delete(symbol); 
+  
+  %delete(symbol); 
   end 
 
 
@@ -96,7 +100,7 @@ for n = 1:N
     
   
   pause(0.000000000000000001);
-  plot(tplot, pplot, "o");
+  plot(tplot, pplot, "");
   end 
   %plot(xplot,yplot, "*");
 
