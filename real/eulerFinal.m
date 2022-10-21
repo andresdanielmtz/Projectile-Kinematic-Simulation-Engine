@@ -57,8 +57,8 @@ text_ymax = sprintf("y_{max} = %.2f m", ymax(k) + 463);
 text(xmax(k) / 2, (1.1 * ymax(k)) + 463, text_ymax)
 
 tb = (2 * vi(k) * sind(angulo(k))/abs(g)) + abs(sqrt(2 * y(k) / g))/2; % tiempo final 
-text_tf = sprintf("t_{final} = %.2f m", tb);
-text(2 * xmax(k) + 100, ymax(k) + 20, text_tf)
+% text_tf = sprintf("t_{final} = %.2f m", tb);
+% text(2 * xmax(k) + 100, ymax(k) + 20, text_tf)
 
 
 disp(tb);
@@ -97,6 +97,7 @@ for n = 1:N
       disp(xplot);
         text_tfinal = sprintf("Posicion_{Final} = (%.2f, %2.f)", 346.2321, 0);
         f = text(- 900, 100, text_tfinal);
+      break; 
         
   end
 
