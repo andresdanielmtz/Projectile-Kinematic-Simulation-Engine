@@ -7,23 +7,15 @@ m = 10.68; % masa kg
 % r = 1.25 (f vol esfera) 
 b= 0.47; 
 
-for i = 1:4
+for i = 1:3
     x(i, 1) = 0; 
     y(i, 1) = 463; 
     angulo(i) = 75 + rand(1) * 10; 
-    vi(i) = 111.111 + rand(1) * 2; % 111.111
+    vi(i) = 300 + rand(1) * 2; % 111.111
     vx(i, 1) = vi(i) * cosd(angulo(i));
     vy(i, 1) = vi(i) * sind(angulo(i));
 end
 
-for k = 1:1
-    x(k, 1) = 0; 
-    y(k, 1) = 463; 
-    angulo(k) = 75; 
-    vi(k) = 111.111; % 111.111
-    vx(k, 1) = vi(k) * cosd(angulo(k));
-    vy(k, 1) = vi(k) * sind(angulo(k));
-end 
 %------------------
 ti = 0; % tiempo inicial 
 tf = (2 * vi(i) * sind(angulo(i))/abs(g)) + abs(sqrt(2 * y(i, 1) / g)); % tiempo final 
@@ -34,7 +26,7 @@ vf = sqrt(vx(i).^2 + vy(i).^2);
 
 
 % volcan 
-triangX = [-1000 -500 500 1000]; % volcano  
+triangX = [-2000 -750 750 2000]; % volcano  
 triangY = [0 463 463 0];
 plot(triangX, triangY);
 
@@ -50,14 +42,14 @@ hold on
 
 xlabel("Posición en X (metros)");
 ylabel("Posición en Y (metros)");
-axis([-1000 1500 0 1500])
+axis([-3000 4000 0 4000])
 
 
 t(1)  = ti;
 for n = 1:N
   t(n+1)= ti + n*dt;
   
-  for i = 1:4
+  for i = 1:3
   vx(i, n+1)=vx(i,n) * (1-b*dt/m);
   vy(i, n+1)=vy(i,n)*(1-b*dt/m)+g*dt;
   x(i, n+1) = x(i,n) + vx(i,n+1)*dt;
@@ -74,21 +66,22 @@ for n = 1:N
   delete(symbol); 
   end 
 
+  angulo(i) = 75 + rand(1) * 10; 
+  vx(n+1)=vx(n)*(1-0*dt/m);
+  vy(n+1)=vy(n)*(1-0*dt/m)+g*dt;
+  x(n+1) = x(n) + vx(n+1)*dt;
+  y(n+1) = y(n) + vy(n+1)*dt;
+  
+  xmax = vi(i)^2* sind(2 * angulo(i)) ^ 2 / abs(g);
+  disp(xmax)
 
-  for k = 1:1 
-  vx(k, n+1)=vx(k, n)*(1-0*dt/m);
-  vy(k, n+1)=vy(k, n)*(1-0*dt/m)+g*dt;
-  x(k,n+1) = x(k,n) + vx(k,n+1)*dt;
-  y(k,n+1) = y(k,n) + vy(k,n+1)*dt;
-  
-  
-  tplot = x(k,n+1);
-  pplot = y(k,n+1);
+  tplot = x(n+1);
+  pplot = y(n+1);
     
   
   pause(0.000000000000000001);
-  plot(tplot, pplot, "o");
-  end 
+  plot(tplot, pplot, ".");
+
   %plot(xplot,yplot, "*");
 
 end
