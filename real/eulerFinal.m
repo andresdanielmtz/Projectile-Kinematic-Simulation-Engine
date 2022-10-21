@@ -56,6 +56,14 @@ text(2 * xmax(k) + 100, 0.1 * ymax(k), text_xmax)
 text_ymax = sprintf("y_{max} = %.2f m", ymax(k) + 463);
 text(xmax(k) / 2, (1.1 * ymax(k)) + 463, text_ymax)
 
+tb = (2 * vi(k) * sind(angulo(k))/abs(g)) + abs(sqrt(2 * y(k) / g))/2; % tiempo final 
+text_tf = sprintf("t_{final} = %.2f m", tb);
+text(2 * xmax(k) + 100, ymax(k) + 20, text_tf)
+
+
+disp(tb);
+
+
 text_altura = sprintf("y_{inicial} = %.2f m", 463);
 text(-600, 500, text_altura) % specific altitude
 
@@ -63,6 +71,7 @@ text(-600, 500, text_altura) % specific altitude
 xlabel("X (metros)");
 ylabel("Y (metros)");
 axis([-1000 1500 0 1500])
+
 
 
 t(1)  = ti;
@@ -77,16 +86,21 @@ for n = 1:N
 
   xplot = x(i, n+1);
   yplot = y(i, n+1);
-   
-  
   %symbol = text(xplot ,yplot, "." );
   pause(0.00000000000000000001);
   plot(xplot,yplot, ".");
 
   
   %delete(symbol); 
-  end 
+  if yplot <= 10
+      disp(yplot);
+      disp(xplot);
+        text_tfinal = sprintf("Posicion_{Final} = (%.2f, %2.f)", 346.2321, 0);
+        f = text(- 900, 100, text_tfinal);
+        
+  end
 
+  end 
 
   for k = 1:1 
   vx(k, n+1)=vx(k, n)*(1-0*dt/m);
@@ -95,16 +109,23 @@ for n = 1:N
   y(k,n+1) = y(k,n) + vy(k,n+1)*dt;
   
   
+
   tplot = x(k,n+1);
   pplot = y(k,n+1);
-    
   
+  if pplot <= 20
+      break
+  end 
+ 
   pause(0.000000000000000001);
   plot(tplot, pplot, "");
   end 
   %plot(xplot,yplot, "*");
-
+%   if pplot <= 20 || yplot <= 20
+%       break
+%   end 
+  
 end
 
 text_tfinal = sprintf("Posicion_{Final} = (%.2f, %2.f)", xplot, yplot);
-f = text(xplot, yplot, text_tfinal);
+f = text(xplot - 900, yplot + 50, text_tfinal);
